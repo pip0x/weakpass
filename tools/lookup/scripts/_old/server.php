@@ -1,22 +1,4 @@
 <?php
-// --- CORS Handling for Firefox & other browsers ---
-if (isset($_SERVER['HTTP_ORIGIN'])) {
-    header("Access-Control-Allow-Origin: " . $_SERVER['HTTP_ORIGIN']);
-    header("Access-Control-Allow-Credentials: true");
-    header("Access-Control-Max-Age: 86400"); // cache for 1 day
-}
-
-if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-    if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'])) {
-        header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-    }
-
-    if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS'])) {
-        header("Access-Control-Allow-Headers: " . $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']);
-    }
-    exit(0);
-}
-
 
 /*
 This is a **very** example on how RANGE api can work with /DB/hashes data.
@@ -70,14 +52,11 @@ $scriptName = $_SERVER['SCRIPT_NAME'];
 $segments = explode('/', trim($requestUri, '/'));
 
 // /api/v1/range/PREFIX
-// DEBUG Request URI:
-// var_dump($_SERVER['REQUEST_URI']);
+var_dump($_SERVER['REQUEST_URI']);
 if (count($segments) == 4 && $segments[0] === 'api' && $segments[1] === 'v1' && $segments[2] === 'range') {
     $prefix = $segments[3];
 
-// DEBUG prefix:
-// var_dump($prefix);
-    
+    var_dump($prefix);
     if (!preg_match('/^[A-Fa-f0-9]{6}$/', $prefix)) {
         #http_response_code(400);
         echo json_encode(["error" => "Invalid prefix"]);

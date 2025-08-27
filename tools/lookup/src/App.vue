@@ -1,6 +1,10 @@
 <script setup>
 import { ref, computed } from 'vue';
-const API_URL="https://weakpass.com/api/v1/range/";
+// Original Request to WeakPass Page:
+    // const API_URL="https://weakpass.com/api/v1/range/";
+// Request to Localhost Page:
+const API_URL="http://127.0.0.1:8000/api/v1/range/";
+
 
 let hashes = ref([]);
 let revealed = ref([]);
@@ -156,7 +160,7 @@ const handleLookupSHA256 = async () => {
   });
 
   const fetchData = async (hash) => {
-    const response = await fetch(`${API_URL}${hash}.json?type=sha256`);
+    const response = await fetch(`${API_URL}${hash}?type=sha256`);
     return response.json();
   };
 
@@ -184,7 +188,7 @@ const handleLookupSHA1 = async () => {
   });
 
   const fetchData = async (hash) => {
-    const response = await fetch(`${API_URL}${hash}.json?type=sha1`);
+    const response = await fetch(`${API_URL}${hash}?type=sha1`);
     return response.json();
   };
 
@@ -211,7 +215,7 @@ const handleLookupMD5 = async () => {
   });
 
   const fetchData = async (hash) => {
-    const response = await fetch(`${API_URL}${hash}.json?type=md5`);
+    const response = await fetch(`${API_URL}${hash}?type=md5`);
     return response.json();
   };
 
@@ -239,7 +243,7 @@ const handleLookupNTLM = async () => {
   });
 
   const fetchData = async (hash) => {
-    const response = await fetch(`${API_URL}${hash}.json?type=ntlm`);
+    const response = await fetch(`${API_URL}${hash}?type=ntlm`);
     return response.json();
   };
 
@@ -493,7 +497,7 @@ One hash per line"  rows="7" v-model="content"></textarea>
             <div class="is-flex">
               <div>
 
-                <p class="has-text-grey-dark">In the <code>/db/</code> folder, you'll find an example structure of the database. Currently, this tool uses <code>https://weakpass.com/api/v1/range</code> as the primary tool URL. However, you can implement your own and change the <code>API_URL</code> value to use it.</p>
+                <p class="has-text-grey-dark">In the <code>/db/</code> folder, you'll find an example structure of the database. Currently, this tool uses <code>http://127.0.0.1:8000/api/v1/range/</code> as the primary tool URL. However, you can implement your own and change the <code>API_URL</code> value to use it.</p>
               </div>
             </div>
 
